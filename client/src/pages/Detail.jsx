@@ -23,8 +23,8 @@ function Detail() {
 	const cart = useSelector(selectAllCartItems)
 
 	const { id } = useParams()
-	const [currentProduct, setCurrentProduct] = useState({})
 	const { loading, data } = useQuery(QUERY_PRODUCTS)
+	const [currentProduct, setCurrentProduct] = useState({})
 
 	useEffect(() => {
 		// already in global store
