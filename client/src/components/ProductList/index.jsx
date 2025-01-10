@@ -1,11 +1,11 @@
 import { useEffect } from "react"
-import ProductItem from "../ProductItem"
+import ProductItem from "@components/ProductItem"
 import { useDispatch, useSelector } from "react-redux"
-import { updateProducts } from "../../utils/reducers/productReducer"
+import { updateProducts, selectAllProducts } from "@store/reducers/productReducer"
 import { useQuery } from "@apollo/client"
-import { QUERY_PRODUCTS } from "../../utils/queries"
-import { idbPromise } from "../../utils/helpers"
-import spinner from "../../assets/spinner.gif"
+import { QUERY_PRODUCTS } from "@utils/queries"
+import { idbPromise } from "@utils/helpers"
+import spinner from "@assets/spinner.gif"
 
 function ProductList() {
 	const dispatch = useDispatch()

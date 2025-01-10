@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom"
-import { pluralize } from "../../utils/helpers"
+import { pluralize } from "@utils/helpers"
+import { useDispatch, useSelector } from "react-redux"
+import { idbPromise } from "@utils/helpers"
 import {
 	addToCart,
 	selectAllCartItems,
 	updateCartQuantity,
-} from "../../utils/reducers/cartReducer"
-import { useDispatch, useSelector } from "react-redux"
-import { idbPromise } from "../../utils/helpers"
+} from "@store/reducers/cartReducer"
 
 function ProductItem(item) {
 	const dispatch = useDispatch()

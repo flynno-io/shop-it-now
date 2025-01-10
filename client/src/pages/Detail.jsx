@@ -1,21 +1,21 @@
 import { useEffect, useState } from "react"
 import { Link, useParams } from "react-router-dom"
-import { useQuery } from "@apollo/client"
-import Cart from "../components/Cart"
-import { QUERY_PRODUCTS } from "../utils/queries"
-import { idbPromise } from "../utils/helpers"
-import spinner from "../assets/spinner.gif"
 import { useDispatch, useSelector } from "react-redux"
+import { useQuery } from "@apollo/client"
+import Cart from "@components/Cart"
+import { QUERY_PRODUCTS } from "@utils/queries"
+import { idbPromise } from "@utils/helpers"
+import spinner from "@assets/spinner.gif"
 import {
 	removeFromCart,
 	updateCartQuantity,
 	addToCart,
 	selectAllCartItems,
-} from "../utils/reducers/cartReducer"
+} from "@store/reducers/cartReducer"
 import {
 	updateProducts,
 	selectAllProducts,
-} from "../utils/reducers/productReducer"
+} from "@store/reducers/productReducer"
 
 function Detail() {
 	const dispatch = useDispatch()

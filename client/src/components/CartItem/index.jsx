@@ -2,8 +2,8 @@ import { useDispatch } from "react-redux"
 import {
 	removeFromCart,
 	updateCartQuantity,
-} from "../../utils/reducers/cartReducer"
-import { idbPromise } from "../../utils/helpers"
+} from "@store/reducers/cartReducer"
+import { idbPromise } from "@utils/helpers"
 
 const CartItem = ({ item }) => {
 	const dispatch = useDispatch()

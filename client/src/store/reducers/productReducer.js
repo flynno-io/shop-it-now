@@ -9,11 +9,11 @@ const categoryAdapter = createEntityAdapter({
 })
 
 // The initial state uses two adapters to manage the products and categories data.
-const initialState = productAdapter.getInitialState({
-	products: productsAdapter.getInitialState(),
+const initialState = {
+	products: productAdapter.getInitialState(),
 	categories: categoryAdapter.getInitialState(),
 	currentCategory: "",
-})
+}
 
 // productReducer using the createSlice function from Redux Toolkit
 // to create a slice of the state object that manages the products data.
@@ -46,13 +46,13 @@ export const { updateProducts, updateCategories, updateCurrentCategory } =
 export const {
   selectAll: selectAllProducts,
   selectById: selectProductById,
-} = productAdapter.getSelectors((state) => state.products)
+} = productAdapter.getSelectors()
 
 // Category Selectors
 export const {
   selectAll: selectAllCategories,
   selectById: selectCategoryById,
-} = categoryAdapter.getSelectors((state) => state.categories)
+} = categoryAdapter.getSelectors()
 
 // Export the reducer as the default.
 export default productReducer.reducer
