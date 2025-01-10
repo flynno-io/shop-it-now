@@ -1,32 +1,58 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createEntityAdapter } from "@reduxjs/toolkit"
 
-// The initial state of the application is an object with the following properties.
-const initialState = {
-  products: [],
-  categories: [],
-  currentCategory: '',
-};
+const productAdapter = createEntityAdapter({
+	selectId: (product) => product._id,
+})
+
+const categoryAdapter = createEntityAdapter({
+	selectId: (category) => category._id,
+})
+
+// The initial state uses two adapters to manage the products and categories data.
+const initialState = productAdapter.getInitialState({
+	products: productsAdapter.getInitialState(),
+	categories: categoryAdapter.getInitialState(),
+	currentCategory: "",
+})
 
 // productReducer using the createSlice function from Redux Toolkit
 // to create a slice of the state object that manages the products data.
 const productReducer = createSlice({
-  name: 'products',
-  initialState,
-  reducers: {
-    updateProducts(state, action) {
-      state.products = [...action.payload];
-    },
-    updateCategories(state, action) {
-      state.categories = [...action.payload];
-    },
-    updateCurrentCategory(state, action) {
-      state.currentCategory = action.payload;
-    },
-  }
+	name: "products",
+	initialState,
+	reducers: {
+    // Replace all products
+		updateProducts(state, action) {
+			productAdapter.setAll(state, action.payload)
+		},
+		// Replace all categories
+		updateCategories(state, action) {
+			categoryAdapter.setAll(state.categories, action.payload)
+		},
+		// Update the current category
+		updateCurrentCategory(state, action) {
+			state.currentCategory = action.payload
+		},
+	},
 })
 
 // Export the reducer functions as actions to be called in the application.
-export const { updateProducts, updateCategories, updateCurrentCategory } = productReducer.actions;
+export const { updateProducts, updateCategories, updateCurrentCategory } =
+	productReducer.actions
+
+// Export the selectors to access the state data.
+
+// Product Selectors
+export const {
+  selectAll: selectAllProducts,
+  selectById: selectProductById,
+} = productAdapter.getSelectors((state) => state.products)
+
+// Category Selectors
+export const {
+  selectAll: selectAllCategories,
+  selectById: selectCategoryById,
+} = categoryAdapter.getSelectors((state) => state.categories)
 
 // Export the reducer as the default.
-export default productReducer.reducer;
+export default productReducer.reducer
