@@ -31,7 +31,7 @@ const productReducer = createSlice({
 		},
 		// Update the current category
 		updateCurrentCategory(state, action) {
-			state.currentCategory = action.payload
+			state.currentCategory = action.payload._id
 		},
 	},
 })
