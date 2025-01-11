@@ -17,6 +17,7 @@ const Cart = () => {
   const cart = useSelector((selectAllCartItems))
   const cartOpen = useSelector((state) => state.cart.cartOpen)
 
+  // Open the Stripe Checkout when the data is available
 	useEffect(() => {
 		if (data) {
 			stripePromise.then((res) => {
@@ -25,6 +26,7 @@ const Cart = () => {
 		}
 	}, [data])
 
+  // Get the cart from IndexedDB as soon as the component loads
 	useEffect(() => {
 		async function getCart() {
 			const cart = await idbPromise("cart", "get")
@@ -36,10 +38,12 @@ const Cart = () => {
 		}
 	}, [cart.length, dispatch])
 
+  // Open/Close the cart
 	function toggleTheCart() {
 		dispatch(toggleCart())
 	}
 
+  // Calculate the total cost of the items in the cart
 	function calculateTotal() {
 		let sum = 0
 		cart.forEach((item) => {
@@ -64,7 +68,7 @@ const Cart = () => {
 
 	if (!cartOpen) {
 		return (
-			<div className="cart-closed" onClick={toggleCart}>
+			<div className="cart-closed" onClick={toggleTheCart}>
 				<span role="img" aria-label="trash">
 					🛒
 				</span>

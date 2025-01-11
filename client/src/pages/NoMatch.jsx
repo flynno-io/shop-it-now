@@ -11,9 +11,9 @@ const NoMatch = () => {
 						🙄
 					</span>
 				</h1>
-        <Link to="/" style={{ color: "blue", textDecoration: "underline" }}>
-						Go back to Home
-					</Link>
+				<Link to="/" style={{ color: "blue", textDecoration: "underline" }}>
+					Go back to Home
+				</Link>
 			</Jumbotron>
 		</div>
 	)
