@@ -15,7 +15,7 @@ import {
 import {
 	updateProducts,
 	selectAllProducts,
-} from "@store/reducers/productReducer"
+} from "@store/reducers/catalogReducer"
 
 function Detail() {
 	const dispatch = useDispatch()

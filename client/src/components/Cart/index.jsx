@@ -15,7 +15,7 @@ const Cart = () => {
   const [getCheckout, { data }] = useLazyQuery(QUERY_CHECKOUT)
   const dispatch = useDispatch()
   const cart = useSelector((selectAllCartItems))
-  const cartOpen = useSelector((state) => state.cartOpen)
+  const cartOpen = useSelector((state) => state.cart.cartOpen)
 
 	useEffect(() => {
 		if (data) {

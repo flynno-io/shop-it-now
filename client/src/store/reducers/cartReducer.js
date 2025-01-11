@@ -12,11 +12,14 @@ const initialState = cartAdapter.getInitialState({
 	cartOpen: false,
 })
 
-const cartReducer = createSlice({
+const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
-    addToCart: cartAdapter.addOne,
+    addToCart(state, action) {
+      cartAdapter.addOne(state, action.payload)
+      state.cartOpen = true
+    },
     addMutlipleToCart: cartAdapter.addMany,
     updateCartQuantity(state, action) {
       cartAdapter.updateOne(state, {
@@ -27,11 +30,11 @@ const cartReducer = createSlice({
     },
     removeFromCart(state, action) {
       cartAdapter.removeOne(state, action.payload._id)
-      state.cartOpen = state.ids.length > 0
+      state.cartOpen = state.ids.length > 0 // Keep the cart open if there are items in it
     },
     clearCart(state) {
       cartAdapter.removeAll(state)
-      state.cartOpen = false
+      state.cartOpen = false // Close the cart when it's empty
     },
     toggleCart(state) {
       state.cartOpen = !state.cartOpen
@@ -39,20 +42,23 @@ const cartReducer = createSlice({
   },
 })
 
-// Export the reducer functions as actions to be called in the application.
+// Export the reducer functions as actions
 export const {
-	addToCart,
-	addMutlipleToCart,
-	updateCartQuantity,
-	removeFromCart,
-	clearCart,
-	toggleCart,
-} = cartReducer.actions
+  addToCart,
+  addMutlipleToCart,
+  updateCartQuantity,
+  removeFromCart,
+  clearCart,
+  toggleCart,
+} = cartSlice.actions
 
-// Export the selectors to access the state data.
+// Export the selectors to access cart state data
 export const {
   selectAll: selectAllCartItems,
+  selectById: selectCartItemById,
+  selectIds: selectCartItemIds,
+  selectTotal: selectCartTotalItems,
 } = cartAdapter.getSelectors((state) => state.cart)
 
 // Export the reducer as the default.
-export default cartReducer.reducer
+export default cartSlice.reducer

@@ -1,7 +1,7 @@
 import { useEffect } from "react"
 import ProductItem from "@components/ProductItem"
 import { useDispatch, useSelector } from "react-redux"
-import { updateProducts, selectAllProducts } from "@store/reducers/productReducer"
+import { updateProducts, selectAllProducts } from "@store/reducers/catalogReducer"
 import { useQuery } from "@apollo/client"
 import { QUERY_PRODUCTS } from "@utils/queries"
 import { idbPromise } from "@utils/helpers"
@@ -9,8 +9,8 @@ import spinner from "@assets/spinner.gif"
 
 function ProductList() {
 	const dispatch = useDispatch()
-	const currentCategory = useSelector((state) => state.currentCategory)
-  const products = useSelector(selectAllProducts)
+	const currentCategory = useSelector((state) => state.catalog.currentCategory)
+  const products = useSelector(selectAllProducts) || [] // Default to empty array
 
 	const { loading, data } = useQuery(QUERY_PRODUCTS)
 
@@ -40,9 +40,9 @@ function ProductList() {
 	return (
 		<div className="my-2">
 			<h2>Our Products:</h2>
-			{state.products.length ? (
+			{products.length ? (
 				<div className="flex-row">
-					{filterProducts().map((product) => (
+					{filterProducts()?.map((product) => (
 						<ProductItem
 							key={product._id}
 							_id={product._id}

@@ -1,10 +1,10 @@
 import { createSlice, createEntityAdapter } from "@reduxjs/toolkit"
 
-const productAdapter = createEntityAdapter({
+export const productAdapter = createEntityAdapter({
 	selectId: (product) => product._id,
 })
 
-const categoryAdapter = createEntityAdapter({
+export const categoryAdapter = createEntityAdapter({
 	selectId: (category) => category._id,
 })
 
@@ -12,18 +12,18 @@ const categoryAdapter = createEntityAdapter({
 const initialState = {
 	products: productAdapter.getInitialState(),
 	categories: categoryAdapter.getInitialState(),
-	currentCategory: "",
+	currentCategory: null,
 }
 
-// productReducer using the createSlice function from Redux Toolkit
+// catalogReducer using the createSlice function from Redux Toolkit
 // to create a slice of the state object that manages the products data.
-const productReducer = createSlice({
-	name: "products",
+const catalogSlice = createSlice({
+	name: "catalog",
 	initialState,
 	reducers: {
     // Replace all products
 		updateProducts(state, action) {
-			productAdapter.setAll(state, action.payload)
+			productAdapter.setAll(state.products, action.payload)
 		},
 		// Replace all categories
 		updateCategories(state, action) {
@@ -38,7 +38,7 @@ const productReducer = createSlice({
 
 // Export the reducer functions as actions to be called in the application.
 export const { updateProducts, updateCategories, updateCurrentCategory } =
-	productReducer.actions
+catalogSlice.actions
 
 // Export the selectors to access the state data.
 
@@ -46,13 +46,13 @@ export const { updateProducts, updateCategories, updateCurrentCategory } =
 export const {
   selectAll: selectAllProducts,
   selectById: selectProductById,
-} = productAdapter.getSelectors()
+} = productAdapter.getSelectors((state) => state.catalog.products)
 
 // Category Selectors
 export const {
   selectAll: selectAllCategories,
   selectById: selectCategoryById,
-} = categoryAdapter.getSelectors()
+} = categoryAdapter.getSelectors((state) => state.catalog.categories)
 
 // Export the reducer as the default.
-export default productReducer.reducer
+export default catalogSlice.reducer

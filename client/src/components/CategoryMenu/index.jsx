@@ -7,11 +7,11 @@ import {
 	updateCategories,
 	updateCurrentCategory,
 	selectAllCategories,
-} from "@store/reducers/productReducer"
+} from "@store/reducers/catalogReducer"
 
 function CategoryMenu() {
 	const dispatch = useDispatch()
-	const categories = useSelector(selectAllCategories)
+  const categories = useSelector(selectAllCategories) || []; // Default to empty array
 
 	const { loading, data: categoryData } = useQuery(QUERY_CATEGORIES)
 
@@ -35,7 +35,7 @@ function CategoryMenu() {
 	return (
 		<div>
 			<h2>Choose a Category:</h2>
-			{categories.map((item) => (
+			{categories?.map((item) => (
 				<button
 					key={item._id}
 					onClick={() => {
