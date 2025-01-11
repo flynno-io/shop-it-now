@@ -44,6 +44,11 @@
   height: 50px;
 }
 
+.cart-closed>span {
+  display: block;
+  text-align: center;
+}
+
 .cart-closed:hover {
   transform: rotate(8deg);
 }
