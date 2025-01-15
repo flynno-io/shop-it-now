@@ -12,7 +12,7 @@
                 "src/pages/*"
             ],
             "@store/*": [
-                "src/state/*"
+                "src/store/*"
             ],
             "@tests/*": [
                 "src/tests/*"
